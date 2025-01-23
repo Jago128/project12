@@ -7,8 +7,8 @@ public class Piloto extends Staff {
 	
 	private ArrayList <Carrera> c;
 	
-	public Piloto(int code, String name, String country, ArrayList<Carrera> c) {
-		super(code, name, country);
+	public Piloto(int codeEsc, String name, String country, ArrayList<Carrera> c) {
+		super(codeEsc, name, country);
 		this.c=c;
 	}
 	

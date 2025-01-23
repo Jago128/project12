@@ -1,24 +1,28 @@
 package clases;
 
-public class Ganadores {
-	private int code;
+import java.io.Serializable;
+
+public class Ganadores implements Serializable, Comparable<Ganadores> {
+	private static final long serialVersionUID = 1L;
+	
+	private String codeEsc;
 	private String piloto;
 	private String escuderia;
 	private String carrera;
 	
-	public Ganadores(int code, String piloto, String escuderia, String carrera) {
-		this.code = code;
+	public Ganadores(String code, String piloto, String escuderia, String carrera) {
+		this.codeEsc = code;
 		this.piloto = piloto;
 		this.escuderia = escuderia;
 		this.carrera = carrera;
 	}
 
-	public int getCode() {
-		return code;
+	public String getCodeEsc() {
+		return codeEsc;
 	}
 
-	public void setCode(int code) {
-		this.code = code;
+	public void setCodeEsc(String code) {
+		this.codeEsc = code;
 	}
 
 	public String getPiloto() {
@@ -47,6 +51,11 @@ public class Ganadores {
 
 	@Override
 	public String toString() {
-		return "Ganadores [Codigo: "+code+", Piloto: "+piloto+", Escuderia: "+escuderia+", Carrera: "+carrera+"]";
+		return "Ganadores [Codigo de Escuderia: "+codeEsc+", Piloto: "+piloto+", Escuderia: "+escuderia+", Carrera: "+carrera+"]";
+	}
+
+	@Override
+	public int compareTo(Ganadores o) {
+		return this.carrera.compareTo(o.carrera);
 	}
 }

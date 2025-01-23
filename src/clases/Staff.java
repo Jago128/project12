@@ -5,12 +5,12 @@ import java.io.Serializable;
 public abstract class Staff implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	protected int code;
+	protected int codeEsc;
 	protected String name;
 	protected String country;
 
-	public Staff(int code, String name, String country) {
-		this.code = code;
+	public Staff(int codeEsc, String name, String country) {
+		this.codeEsc = codeEsc;
 		this.name = name;
 		this.country = country;
 	}
@@ -31,17 +31,17 @@ public abstract class Staff implements Serializable {
 		this.country = country;
 	}
 
-	public int getCode() {
-		return code;
+	public int getCodeEsc() {
+		return codeEsc;
 	}
 
-	public void setCode(int code) {
-		this.code = code;
+	public void setCodeEsc(int codeEsc) {
+		this.codeEsc = codeEsc;
 	}
 
 	@Override
 	public String toString() {
-		return "Staff [Nombre: "+name+", Pais: "+country+", Codigo:" +code;
+		return "Staff [Nombre: "+name+", Pais: "+country+", Codigo de Escuderia:" +codeEsc;
 	}
 	
 	public abstract void visualizar();

@@ -27,7 +27,7 @@ public class Carrera {
 		this.name = name;
 	}
 
-	public boolean isWin() {
+	public boolean hasWon() {
 		return win;
 	}
 

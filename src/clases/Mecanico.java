@@ -5,8 +5,8 @@ public class Mecanico extends Staff {
 	
 	private Puesto post;
 
-	public Mecanico(int code, String name, String country, Puesto post) {
-		super(code, name, country);
+	public Mecanico(int codeEsc, String name, String country, Puesto post) {
+		super(codeEsc, name, country);
 		this.post = post;
 	}
 
