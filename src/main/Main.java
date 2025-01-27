@@ -12,17 +12,20 @@ public class Main {
 	public static void main(String[] args) {
 		File esc=new File("escuderias.dat");
 		File staff=new File("staff.dat");
+		File winner=new File("ganadores.dat");
 		ArrayList <Escuderia> e=new ArrayList<>();
 		ArrayList <Staff> s=new ArrayList<>();
+		ArrayList <Ganadores> g=new ArrayList<>();
 		int menu=menu();
-
-		fillDataFiles(esc,staff);
+		if (!esc.exists()||!staff.exists()) {
+			fillDataFiles(esc,staff);
+		}
 		fillArrayLists(e,s,esc,staff);
 
 		switch (menu) {
 
 		case 1:
-			showWinEsc(esc,staff);
+			showWinEsc(esc,staff,winner,g);
 			break;
 
 		case 2:
@@ -128,9 +131,7 @@ public class Main {
 		}
 	}
 
-	public static void showWinEsc(File esc, File staff) {
-		File winner=new File("ganadores.dat");
-		ArrayList <Ganadores> g=new ArrayList<>();
+	public static void showWinEsc(File esc, File staff, File winner, ArrayList <Ganadores> g) {
 		ObjectOutputStream oos;
 		ObjectInputStream ois, ois2;
 		boolean end=false;
@@ -161,11 +162,11 @@ public class Main {
 		}
 		Collections.sort(g);
 	}
-	
+
 	public static String generateCodeWin(Staff s, Carrera c, ArrayList <Ganadores> g) {
 		return s.getName().substring(0,2)+"-"+c.getName().substring(0,2)+"-"+String.format("%04d",g.size());
 	}
-	
+
 	public static String getNomEsc(File esc, Staff s) {
 		ObjectInputStream ois;
 		boolean end=false;
@@ -183,7 +184,7 @@ public class Main {
 					end=true;
 				}
 			}
-			
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -211,7 +212,6 @@ public class Main {
 						found=true;
 						System.out.println("Introduce el nuevo nombre:");
 						tempE.setName(Utilidades.introducirCadena());
-						System.out.println("El nombre ha sido modificado.");
 					}
 					oos.writeObject(tempE);
 				} catch (ClassNotFoundException e) {
@@ -222,14 +222,16 @@ public class Main {
 			}
 			ois.close();
 			oos.close();
+			if (found) {
+				System.out.println("El nombre ha sido modificado.");
+				if (esc.delete()) {
+					temp.renameTo(esc);
+				}
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-
-		if (esc.delete()) {
-			temp.renameTo(esc);
 		}
 
 		if (!found) {
