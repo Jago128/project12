@@ -133,11 +133,12 @@ public class Main {
 
 	public static void showWinEsc(File esc, File staff, File winner, ArrayList <Ganadores> g) {
 		ObjectOutputStream oos;
-		ObjectInputStream ois, ois2;
+		ObjectInputStream ois;
 		boolean end=false;
 
 		try {
 			ois=new ObjectInputStream(new FileInputStream(staff));
+			oos=new ObjectOutputStream(new FileOutputStream(winner));
 			try {
 				while (!end) {
 					Staff s=(Staff)ois.readObject();
@@ -145,6 +146,7 @@ public class Main {
 						for (Carrera c:((Piloto)s).getC()) {
 							if (c.hasWon()) {
 								g.add(new Ganadores(generateCodeWin(s,c,g),s.getName(),getNomEsc(esc,s),c.getName()));
+								oos.writeObject(g);
 							}
 						}
 					}
@@ -161,6 +163,10 @@ public class Main {
 			e.printStackTrace();
 		}
 		Collections.sort(g);
+		
+		for (int i=0;i<g.size();i++) {
+			System.out.println(g.get(i).toString());
+		}
 	}
 
 	public static String generateCodeWin(Staff s, Carrera c, ArrayList <Ganadores> g) {
